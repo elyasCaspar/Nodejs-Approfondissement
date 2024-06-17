@@ -2,21 +2,21 @@ const User = require("./users.model");
 const bcrypt = require("bcrypt");
 
 class UserService {
-  getAll() {
-    return User.find({}, "-password");
+  async getAll() {
+    return await User.find({}, "-password");
   }
-  get(id) {
-    return User.findById(id, "-password");
+  async get(id) {
+    return await User.findById(id, "-password");
   }
-  create(data) {
-    const user = new User(data);
-    return user.save();
+  async create(data) {
+    const user = await new User(data);
+    return await user.save();
   }
-  update(id, data) {
-    return User.findByIdAndUpdate(id, data, { new: true });
+  async update(id, data) {
+    return await User.findByIdAndUpdate(id, data, { new: true });
   }
-  delete(id) {
-    return User.deleteOne({ _id: id });
+  async delete(id) {
+    return await User.deleteOne({ _id: id });
   }
   async checkPasswordUser(email, password) {
     const user = await User.findOne({ email });
